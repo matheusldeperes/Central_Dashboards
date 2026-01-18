@@ -4,6 +4,19 @@ import os
 import base64
 import re
 
+@st.cache_resource
+def instalar_playwright_browsers():
+    try:
+        # Tenta rodar o comando de instalação do Chromium
+        subprocess.run(["playwright", "install", "chromium"], check=True)
+    except Exception as e:
+        st.error(f"Erro ao instalar o navegador: {e}")
+
+# Executa a instalação antes de qualquer outra coisa
+instalar_playwright_browsers()
+
+# ... restante do seu código (outros imports, funções de suporte, etc.)
+
 # 1. CONFIGURAÇÃO DA PÁGINA (Deve ser a primeira linha)
 st.set_page_config(
     page_title="Portal de Dashboards | Satte Alam", 
