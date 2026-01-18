@@ -3,16 +3,20 @@ from playwright.sync_api import sync_playwright
 import os
 import base64
 import re
+import subprocess
 
 @st.cache_resource
 def instalar_playwright_browsers():
-    try:
-        # Tenta rodar o comando de instalação do Chromium
-        subprocess.run(["playwright", "install", "chromium"], check=True)
-    except Exception as e:
-        st.error(f"Erro ao instalar o navegador: {e}")
+    # Verifica se já está instalado para não repetir o processo desnecessariamente
+    if not os.path.exists("/home/adminuser/.cache/ms-playwright"):
+        try:
+            # Instala o chromium e suas dependências de SO
+            subprocess.run(["playwright", "install", "chromium"], check=True)
+            # Comando extra para garantir as dependências no Linux
+            subprocess.run(["playwright", "install-deps"], check=True)
+        except Exception as e:
+            st.error(f"Erro na instalação: {e}")
 
-# Executa a instalação antes de qualquer outra coisa
 instalar_playwright_browsers()
 
 # ... restante do seu código (outros imports, funções de suporte, etc.)
