@@ -1,0 +1,5 @@
+libnss3
+libatk-bridge2.0-0
+libx11-xcb1
+libgaul0
+libgbm1
