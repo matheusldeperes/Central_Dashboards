@@ -7,13 +7,10 @@ import subprocess
 
 @st.cache_resource
 def instalar_playwright_browsers():
-    # Verifica se já está instalado para não repetir o processo desnecessariamente
-    if not os.path.exists("/home/adminuser/.cache/ms-playwright"):
+    if not os.path.exists("/home/appuser/.cache/ms-playwright"):
         try:
-            # Instala o chromium e suas dependências de SO
+            # APENAS instala o executável, sem tentar instalar pacotes do sistema (sudo)
             subprocess.run(["playwright", "install", "chromium"], check=True)
-            # Comando extra para garantir as dependências no Linux
-            subprocess.run(["playwright", "install-deps"], check=True)
         except Exception as e:
             st.error(f"Erro na instalação: {e}")
 
