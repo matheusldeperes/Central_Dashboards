@@ -4,3 +4,8 @@ libx11-xcb1
 libgaul0
 libgbm1
 libasound2
+libpangocairo-1.0-0
+libxshmfence1
+libnss3
+libatk1.0-0
+libcups2
