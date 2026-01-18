@@ -29,6 +29,7 @@ def instalar_playwright():
         subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
     except Exception as e:
         st.error(f"Erro na instalação do navegador: {e}")
+instalar_playwright()
 
 def capturar_screenshot(url, nome_arquivo):
     nome_limpo = slugify(nome_arquivo)
@@ -59,7 +60,7 @@ def capturar_screenshot(url, nome_arquivo):
 # --- INÍCIO DA EXECUÇÃO ---
 
 # Executa a instalação do navegador
-instalar_playwright()
+
 
 # CSS para o visual Dark Mode e Cards
 st.markdown("""
