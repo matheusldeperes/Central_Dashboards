@@ -22,14 +22,24 @@ else:
 if bg_image_base64:
     st.markdown(f"""
         <style>
+        html, body {{
+            margin: 0;
+            padding: 0;
+        }}
+        
         .stApp {{ 
             background: url("data:image/jpeg;base64,{bg_image_base64}") center/cover no-repeat fixed;
             background-color: #0E1117;
+            background-attachment: fixed;
         }}
         
         [data-testid="stAppViewContainer"] {{
-            background: rgba(14, 17, 23, 0.85);
-            backdrop-filter: blur(5px);
+            background: rgba(14, 17, 23, 0.80);
+            backdrop-filter: blur(8px);
+        }}
+        
+        [data-testid="stMainBlockContainer"] {{
+            background: transparent;
         }}
         
         .main-title {{ 
@@ -39,17 +49,17 @@ if bg_image_base64:
             font-weight: bold; 
             font-size: 2.5em;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
         }}
         
         .dashboard-card-container {{
-            background-color: #1A1C24;
-            border-radius: 12px;
+            background-color: rgba(26, 28, 36, 0.95);
+            border-radius: 16px;
             border: 2px solid #30363D;
             padding: 0;
-            margin: 10px 0;
+            margin: 15px 0;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
             cursor: pointer;
             height: 100%;
@@ -58,16 +68,16 @@ if bg_image_base64:
         }}
         
         .dashboard-card-container:hover {{
-            transform: translateY(-8px) scale(1.01);
-            border-color: #FF8C00;
-            box-shadow: 0 8px 16px rgba(255, 75, 75, 0.3);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #FF4B4B;
+            box-shadow: 0 12px 32px rgba(255, 75, 75, 0.4);
         }}
         
         .dashboard-iframe-wrapper {{
             width: 100%;
-            height: 350px;
+            height: 380px;
             overflow: hidden;
-            border-radius: 10px 10px 0 0;
+            border-radius: 14px 14px 0 0;
             position: relative;
             background-color: #0d1117;
         }}
@@ -80,44 +90,54 @@ if bg_image_base64:
         }}
         
         .dashboard-footer {{
-            padding: 15px;
-            background-color: #161b22;
-            border-top: 1px solid #30363D;
+            padding: 18px;
+            background: linear-gradient(135deg, #161b22 0%, #1a1f2e 100%);
+            border-top: 2px solid #30363D;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-grow: 1;
+            gap: 12px;
         }}
         
         .dashboard-name {{
-            color: white;
-            font-weight: bold;
-            font-size: 1em;
+            color: #e8f0fe;
+            font-weight: 600;
+            font-size: 0.95em;
             word-wrap: break-word;
             flex-grow: 1;
             text-align: left;
+            line-height: 1.3;
         }}
         
         .open-btn {{
-            background-color: #FF4B4B;
+            background: linear-gradient(135deg, #FF4B4B, #FF6B6B);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
-            margin-left: 10px;
+            margin-left: 8px;
             font-size: 0.9em;
+            box-shadow: 0 4px 12px rgba(255, 75, 75, 0.3);
         }}
         
         .open-btn:hover {{
-            background-color: #FF6B6B;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #FF6B6B, #FF8B8B);
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(255, 75, 75, 0.5);
+        }}
+        
+        .open-btn:active {{
+            transform: scale(0.95);
         }}
         </style>
     """, unsafe_allow_html=True)
+else:
+    st.error("Erro: Imagem de fundo não encontrada!")
 
 st.markdown('<h1 class="main-title">Central de Dashboards - Satte Alam Motors</h1>', unsafe_allow_html=True)
 
@@ -151,6 +171,7 @@ for i, dash in enumerate(dashboards):
             <div class="dashboard-footer">
                 <div class="dashboard-name">{dash['nome']}</div>
                 <a href="{dash['url']}" target="_blank" style="text-decoration: none;">
+                    <button class="open-btn">Abrir ↗</button>
                 </a>
             </div>
         </div>
