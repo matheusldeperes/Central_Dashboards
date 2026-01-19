@@ -1,99 +1,122 @@
 import streamlit as st
+import base64
+import os
 
 # 1. CONFIGURAÇÃO DA PÁGINA
 st.set_page_config(page_title="Portal Satte Alam Motors", layout="wide")
 
+# Função para converter imagem para base64
+def get_base64_image(image_path):
+    """Converte imagem para base64"""
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Carregar imagem de fundo
+background_image_path = "/Users/peres/Desktop/Satte Alam_05_NOV23_ALN_5761_comp.jpg"
+if os.path.exists(background_image_path):
+    bg_image_base64 = get_base64_image(background_image_path)
+else:
+    bg_image_base64 = None
+
 # CSS para o visual Dark Mode e Cards com iframes
-st.markdown("""
-    <style>
-    .stApp { 
-        background-color: #0E1117; 
-    }
-    
-    .main-title { 
-        color: white; 
-        text-align: center; 
-        padding: 20px; 
-        font-weight: bold; 
-        font-size: 2.5em;
-        margin-bottom: 30px;
-    }
-    
-    .dashboard-card-container {
-        background-color: #1A1C24;
-        border-radius: 12px;
-        border: 2px solid #30363D;
-        padding: 0;
-        margin: 10px 0;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .dashboard-card-container:hover {
-        transform: translateY(-8px) scale(1.01);
-        border-color: #FF8C00;
-        box-shadow: 0 8px 16px rgba(255, 75, 75, 0.3);
-    }
-    
-    .dashboard-iframe-wrapper {
-        width: 100%;
-        height: 350px;
-        overflow: hidden;
-        border-radius: 10px 10px 0 0;
-        position: relative;
-        background-color: #0d1117;
-    }
-    
-    .dashboard-iframe-wrapper iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-    }
-    
-    .dashboard-footer {
-        padding: 15px;
-        background-color: #161b22;
-        border-top: 1px solid #30363D;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-grow: 1;
-    }
-    
-    .dashboard-name {
-        color: white;
-        font-weight: bold;
-        font-size: 1em;
-        word-wrap: break-word;
-        flex-grow: 1;
-        text-align: left;
-    }
-    
-    .open-btn {
-        background-color: #FF4B4B;
-        color: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        margin-left: 10px;
-        font-size: 0.9em;
-    }
-    
-    .open-btn:hover {
-        background-color: #FF6B6B;
-        transform: scale(1.05);
-    }
-    </style>
+if bg_image_base64:
+    st.markdown(f"""
+        <style>
+        .stApp {{ 
+            background: url("data:image/jpeg;base64,{bg_image_base64}") center/cover no-repeat fixed;
+            background-color: #0E1117;
+        }}
+        
+        [data-testid="stAppViewContainer"] {{
+            background: rgba(14, 17, 23, 0.85);
+            backdrop-filter: blur(5px);
+        }}
+        
+        .main-title {{ 
+            color: white; 
+            text-align: center; 
+            padding: 20px; 
+            font-weight: bold; 
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }}
+        
+        .dashboard-card-container {{
+            background-color: #1A1C24;
+            border-radius: 12px;
+            border: 2px solid #30363D;
+            padding: 0;
+            margin: 10px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }}
+        
+        .dashboard-card-container:hover {{
+            transform: translateY(-8px) scale(1.01);
+            border-color: #FF8C00;
+            box-shadow: 0 8px 16px rgba(255, 75, 75, 0.3);
+        }}
+        
+        .dashboard-iframe-wrapper {{
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            background-color: #0d1117;
+        }}
+        
+        .dashboard-iframe-wrapper iframe {{
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }}
+        
+        .dashboard-footer {{
+            padding: 15px;
+            background-color: #161b22;
+            border-top: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+        }}
+        
+        .dashboard-name {{
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+            word-wrap: break-word;
+            flex-grow: 1;
+            text-align: left;
+        }}
+        
+        .open-btn {{
+            background-color: #FF4B4B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }}
+        
+        .open-btn:hover {{
+            background-color: #FF6B6B;
+            transform: scale(1.05);
+        }}
+        </style>
     """, unsafe_allow_html=True)
 
 st.markdown('<h1 class="main-title">Central de Dashboards - Satte Alam Motors</h1>', unsafe_allow_html=True)
