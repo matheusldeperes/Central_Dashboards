@@ -65,12 +65,24 @@ if bg_image_base64:
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }}
         
         .dashboard-card-container:hover {{
             transform: translateY(-12px) scale(1.02);
             border-color: #FF8C00;
             box-shadow: 0 12px 32px rgba(255, 75, 75, 0.4);
+        }}
+        
+        .card-link-overlay {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            cursor: pointer;
+            border-radius: 16px;
         }}
         
         .dashboard-iframe-wrapper {{
@@ -162,18 +174,19 @@ cols = st.columns(3, gap="medium")
 
 for i, dash in enumerate(dashboards):
     with cols[i]:
-        # HTML customizado para o card com iframe e botão
+        # HTML customizado para o card com iframe, overlay clicável e botão
         card_html = f"""
-        <div class="dashboard-card-container">
-            <div class="dashboard-iframe-wrapper">
-                <iframe src="{dash['url']}" allowfullscreen></iframe>
+        <a href="{dash['url']}" target="_blank" style="text-decoration: none;">
+            <div class="dashboard-card-container">
+                <div class="card-link-overlay"></div>
+                <div class="dashboard-iframe-wrapper">
+                    <iframe src="{dash['url']}" allowfullscreen></iframe>
+                </div>
+                <div class="dashboard-footer">
+                    <div class="dashboard-name">{dash['nome']}</div>
+                </div>
             </div>
-            <div class="dashboard-footer">
-                <div class="dashboard-name">{dash['nome']}</div>
-                <a href="{dash['url']}" target="_blank" style="text-decoration: none;">
-                </a>
-            </div>
-        </div>
+        </a>
         """
         st.markdown(card_html, unsafe_allow_html=True)
 
