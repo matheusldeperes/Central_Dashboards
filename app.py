@@ -69,7 +69,7 @@ if bg_image_base64:
         
         .dashboard-card-container:hover {{
             transform: translateY(-12px) scale(1.02);
-            border-color: #FF4B4B;
+            border-color: #FF8C00;
             box-shadow: 0 12px 32px rgba(255, 75, 75, 0.4);
         }}
         
@@ -171,7 +171,6 @@ for i, dash in enumerate(dashboards):
             <div class="dashboard-footer">
                 <div class="dashboard-name">{dash['nome']}</div>
                 <a href="{dash['url']}" target="_blank" style="text-decoration: none;">
-                    <button class="open-btn">Abrir ↗</button>
                 </a>
             </div>
         </div>
