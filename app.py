@@ -1,5 +1,6 @@
 import streamlit as st
 from playwright.sync_api import sync_playwright
+from PIL import Image
 import os
 import base64
 import subprocess
@@ -25,13 +26,15 @@ def get_base64_of_bin_file(img_path):
 def instalar_playwright():
     """Instala o navegador Chromium na nuvem ou localmente"""
     try:
-        # Usamos sys.executable para evitar o erro de 'python' não encontrado
         subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
     except Exception as e:
-        st.error(f"Erro na instalação do navegador: {e}")
+        pass  # Silenciosamente falhar se já estiver instalado
+
 instalar_playwright()
 
+@st.cache_data(ttl=3600)
 def capturar_screenshot(url, nome_arquivo):
+    """Captura screenshot com tratamento robusto de erros"""
     nome_limpo = slugify(nome_arquivo)
     path_imagem = f"thumbs/{nome_limpo}.png"
     
@@ -39,22 +42,38 @@ def capturar_screenshot(url, nome_arquivo):
         os.makedirs("thumbs")
 
     if not os.path.exists(path_imagem):
-        with st.spinner(f"Gerando miniatura para: {nome_arquivo}..."):
-            with sync_playwright() as p:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-                )
-                page = browser.new_page()
-                page.set_viewport_size({"width": 1280, "height": 720})
-                try:
-                    page.goto(url, timeout=90000, wait_until="networkidle")
-                    time.sleep(8) # Tempo para o Power BI carregar
-                    page.screenshot(path=path_imagem)
-                except Exception as e:
-                    st.error(f"Erro ao capturar {nome_arquivo}: {e}")
-                finally:
-                    browser.close()
+        try:
+            with st.spinner(f"Gerando miniatura para: {nome_arquivo}..."):
+                with sync_playwright() as p:
+                    browser = None
+                    try:
+                        browser = p.chromium.launch(
+                            headless=True,
+                            args=[
+                                "--no-sandbox",
+                                "--disable-gpu",
+                                "--disable-dev-shm-usage",
+                                "--disable-extensions",
+                                "--single-process"
+                            ],
+                            timeout=30000
+                        )
+                        page = browser.new_page(viewport={"width": 1280, "height": 720})
+                        page.goto(url, timeout=60000, wait_until="domcontentloaded")
+                        time.sleep(5)
+                        page.screenshot(path=path_imagem, full_page=False)
+                        page.close()
+                    finally:
+                        if browser:
+                            browser.close()
+        except Exception as e:
+            # Se falhar, retorna uma imagem placeholder
+            print(f"Erro ao capturar screenshot de {nome_arquivo}: {e}")
+            # Cria uma imagem placeholder cinza
+            from PIL import Image
+            img = Image.new('RGB', (1280, 720), color=(100, 100, 100))
+            img.save(path_imagem)
+    
     return path_imagem
 
 # --- INÍCIO DA EXECUÇÃO ---
