@@ -167,10 +167,14 @@ dashboards = [
         "nome": "KPIs - Luciano", 
         "url": "https://app.powerbi.com/view?r=eyJrIjoiOWM2YzZiNzUtZTAxZS00NGE0LTk3Y2QtZjAxOThkNTIyMDdkIiwidCI6IjgwNGM1M2Y3LTIwNWEtNDI4NS1hNjhmLWVjOTU4NzllOTYzYiJ9"
     },
+    {
+        "nome": "Recadastro de Clientes - CRM", 
+        "url": "https://app.powerbi.com/view?r=eyJrIjoiYzc2OGM3MzYtOWU4OS00Nzk1LTlhMTAtYjJhNTVlYmFhY2E3IiwidCI6IjgwNGM1M2Y3LTIwNWEtNDI4NS1hNjhmLWVjOTU4NzllOTYzYiJ9&pageName=fa50aef6e5383b35d4b5"
+    }
 ]
 
 # Criar colunas responsivas
-cols = st.columns(3, gap="medium")
+cols = st.columns(4, gap="medium")
 
 for i, dash in enumerate(dashboards):
     with cols[i]:
