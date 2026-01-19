@@ -157,7 +157,7 @@ st.markdown('<h1 class="main-title">Central de Dashboards - Satte Alam Motors</h
 dashboards = [
     {
         "nome": "Eficiência e Venda de Serviços - Oficina", 
-        "url": "https://app.powerbi.com/view?r=eyJrIjoiOTRkNjAxYjEtZDVjNC00MGUwLWJlYzMtMTQ4ZjRmMTA4ZTA4IiwidCI6IjgwNGM1M2Y3LTIwNWEtNDI4NS1hNjhmLWVjOTU4NzllOTYzYiJ9"
+        "url": "https://app.powerbi.com/view?r=eyJrIjoiOGE3OTM3OTQtM2M4My00YjNkLWJiODgtOGNlZDc4YzliODEzIiwidCI6IjgwNGM1M2Y3LTIwNWEtNDI4NS1hNjhmLWVjOTU4NzllOTYzYiJ9"
     },
     {
         "nome": "Agenda dia seguinte - Oficina", 
