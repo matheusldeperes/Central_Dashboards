@@ -12,7 +12,7 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Carregar imagem de fundo
-background_image_path = "/Users/peres/Desktop/Satte Alam_05_NOV23_ALN_5761_comp.jpg"
+background_image_path = "assets/background.jpg"
 if os.path.exists(background_image_path):
     bg_image_base64 = get_base64_image(background_image_path)
 else:
