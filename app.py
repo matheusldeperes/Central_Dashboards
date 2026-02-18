@@ -22,18 +22,7 @@ else:
 if bg_image_base64:
     st.markdown(f"""
         <style>
-        @font-face {{
-            font-family: 'Montserrat';
-            src: url('fonts/Montserrat-Regular.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }}
-        @font-face {{
-            font-family: 'Montserrat';
-            src: url('fonts/Montserrat-Bold.ttf') format('truetype');
-            font-weight: 700;
-            font-style: normal;
-        }}
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
         html, body {{
             margin: 0;
             padding: 0;
