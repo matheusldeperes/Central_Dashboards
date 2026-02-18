@@ -22,36 +22,44 @@ else:
 if bg_image_base64:
     st.markdown(f"""
         <style>
+        @font-face {{
+            font-family: 'Montserrat';
+            src: url('fonts/Montserrat-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }}
+        @font-face {{
+            font-family: 'Montserrat';
+            src: url('fonts/Montserrat-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }}
         html, body {{
             margin: 0;
             padding: 0;
         }}
-        
         .stApp {{ 
             background: url("data:image/jpeg;base64,{bg_image_base64}") center/cover no-repeat fixed;
             background-color: #0E1117;
             background-attachment: fixed;
         }}
-        
         [data-testid="stAppViewContainer"] {{
             background: rgba(14, 17, 23, 0.80);
             backdrop-filter: blur(8px);
         }}
-        
         [data-testid="stMainBlockContainer"] {{
             background: transparent;
         }}
-        
         .main-title {{ 
             color: white; 
             text-align: center; 
             padding: 20px; 
-            font-weight: bold; 
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700; 
             font-size: 2.5em;
             margin-bottom: 30px;
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
         }}
-        
         .dashboard-card-container {{
             background-color: rgba(26, 28, 36, 0.95);
             border-radius: 16px;
